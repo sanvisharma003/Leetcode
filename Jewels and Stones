@@ -1,0 +1,30 @@
+You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels. Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+Example 1:
+Input: jewels = "aA", stones = "aAAbbbb"
+Output: 3
+
+CODE:
+
+class Solution 
+{
+    public int numJewelsInStones(String jewels, String stones) 
+    {
+      HashMap<Character,Integer>map=new HashMap<>();
+      int i=0,j=0,count=0;
+
+      while(i< jewels.length())
+      {
+        map.put(jewels.charAt(i),1);
+        i++;
+      }
+
+      while(j< stones.length())
+      {
+        if(map.containsKey(stones.charAt(j)))
+          count++;
+        j++;
+      }
+      return count;
+    }
+}
