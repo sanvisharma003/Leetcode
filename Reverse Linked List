@@ -1,0 +1,53 @@
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+Example 1:
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+
+CODE 1:
+
+class Solution 
+{
+	ListNode reverse(ListNode curr, ListNode prev, ListNode forw)
+  {
+     curr.next = prev;
+	   if(forw==null)
+		   return curr;
+			
+     return(reverse(forw, curr, forw.next));        
+  }
+       
+    public ListNode reverseList(ListNode head) 
+    {
+        ListNode curr,prev,forw;
+        
+        if(head==null||head.next==null)
+            return(head);
+        
+        prev = null;
+        curr = head;
+        forw = curr.next;
+
+        return(reverse(curr,prev,forw));
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public ListNode reverseList(ListNode head) 
+    {
+      ListNode pre=null,nex=null,curr=head;
+
+      while(curr!=null)
+      {
+        nex=curr.next;
+        curr.next=pre;
+        pre=curr;
+        curr=nex;
+      }
+
+      return pre;
+    }
+}
