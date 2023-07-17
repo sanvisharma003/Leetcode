@@ -1,0 +1,68 @@
+Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell. The distance between two adjacent cells is 1.
+
+Example 1:
+Input: mat = [[0,0,0],[0,1,0],[0,0,0]]
+Output: [[0,0,0],[0,1,0],[0,0,0]]
+
+CODE:
+
+ class Node
+{
+  int k;
+    int l;
+    int st;
+    Node(int k,int l,int st)
+    {
+        this.k = k;
+        this.l = l;
+        this.st = st;
+    }
+}
+
+class Solution 
+{
+    
+    public int[][] updateMatrix(int[][] mat) 
+    {
+      boolean[][]vis=new boolean[mat.length][mat[0].length];
+      Queue<Node>qu=new LinkedList<>();
+
+      for(int i=0;i<mat.length;i++)
+      {
+        for(int j=0;j<mat[0].length;j++)
+        {
+          if(mat[i][j]==0)
+          {
+            qu.add(new Node(i,j,0));
+            vis[i][j]=true;
+          }
+        }
+      }
+
+    int[] drow={-1,0,1,0};
+    int[] dcol={0,1,0,-1};  
+
+      while(!qu.isEmpty())
+      {
+        int i=qu.peek().k;
+        int j=qu.peek().l;
+        int t=qu.peek().st;
+        qu.remove();
+
+        mat[i][j]=t;
+
+        for(int m=0;m<4;m++)
+        {
+          int nrow=i+drow[m];
+          int ncol=j+dcol[m];
+                
+          if(nrow>=0 && nrow<mat.length && ncol>=0 && ncol<mat[0].length && vis[nrow][ncol]==false)
+          {
+            vis[nrow][ncol]=true;
+            qu.add(new Node(nrow, ncol,t+1));
+          }
+        }
+      }
+      return mat;
+    }
+}
