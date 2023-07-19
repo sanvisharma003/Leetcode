@@ -8,7 +8,7 @@ Input: n = 2
 Output: 1
 Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
 
-CODE:
+CODE 1:
 
 class Solution 
 {
@@ -23,5 +23,25 @@ class Solution
       else
         return(fib(n-1)+ fib(n-2));
     }
+}
 
+CODE 2:
+(0 ms)
+
+class Solution 
+{
+    public int fib(int n) 
+    {
+      if(n<=1)
+        return n;
+
+      int[]memo=new int[n+1];
+      memo[1]=1;
+
+      for(int i=2;i<=n;i++)
+        memo[i]=memo[i-1]+memo[i-2];
+      
+      return memo[n];
+    
+    }
 }
