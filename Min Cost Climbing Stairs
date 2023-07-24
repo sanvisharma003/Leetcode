@@ -7,7 +7,7 @@ Explanation: You will start at index 1.
              - Pay 15 and climb two steps to reach the top.
              The total cost is 15.
 
-CODE:
+CODE 1:
 
 class Solution 
 {
@@ -21,5 +21,43 @@ class Solution
         dp[i]=cost[i]+Math.min(dp[i-1],dp[i-2]);
 
       return Math.min(dp[dp.length-1], dp[dp.length-2]);
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public int minCostClimbingStairs(int[] cost) 
+    {
+      int pre=cost[0];
+      int cur=cost[1];
+
+      for(int i=2;i<cost.length;i++)
+      {
+        int temp=cur;
+        cur=cost[i]+Math.min(pre,cur);
+        pre=temp;
+      }
+      
+      return Math.min(pre,cur);
+    }
+}
+
+CODE 3(Recursive that does not work on ver big test case) :
+
+class Solution 
+{
+    public int minCostClimbingStairs(int[] cost) 
+    {
+      return Math.min(cal(cost,0), cal(cost,1));
+    }
+
+    int cal(int[]arr, int i)
+    {
+      if(i>=arr.length)
+        return 0;
+      
+      return arr[i] + Math.min(cal(arr,i+1), cal(arr,i+2));
     }
 }
