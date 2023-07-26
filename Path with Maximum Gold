@@ -1,0 +1,70 @@
+In a gold mine grid of size m x n, each cell in this mine has an integer representing the amount of gold in that cell, 0 if it is empty. Return the maximum amount of gold you can collect under the conditions:
+Every time you are located in a cell you will collect all the gold in that cell.
+From your position, you can walk one step to the left, right, up, or down.
+You can't visit the same cell more than once.
+Never visit a cell with 0 gold.
+You can start and stop collecting gold from any position in the grid that has some gold.
+ 
+Example 1:
+Input: grid = [[0,6,0],[5,8,7],[0,9,0]]
+Output: 24
+Explanation:
+[[0,6,0],
+ [5,8,7],
+ [0,9,0]]
+Path to get the maximum gold, 9 -> 8 -> 7.
+
+CODE:
+
+class Solution 
+{
+    public int getMaximumGold(int[][] grid) 
+{
+        int ans=0;
+
+        int m= grid.length;
+        int n= grid[0].length;
+
+        int[][] dp= new int[m+1][n+1];
+        for(int[] a: dp){
+            Arrays.fill(a, -1);
+        }
+
+        for(int i= 0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] != 0){
+                    ans= Math.max(ans, getGold(i, j, m, n, grid, dp));
+                }
+            }
+        }
+
+        return ans;
+    }
+
+    public int getGold(int row, int col, int m, int n, int[][] grid, int[][] dp){
+        if(row<0 || row>= m || col<0 || col>= n){
+            return 0;
+        }
+
+        if(grid[row][col] == 0 || grid[row][col] == -1){
+            return 0;
+        }
+
+        int gold= grid[row][col];
+        grid[row][col]= -1;     
+        int ans1= getGold(row, col-1, m, n, grid, dp)+ gold;
+
+        int ans2= getGold(row, col+1,m, n, grid, dp)+ gold;
+
+        int ans3= getGold(row-1, col, m, n, grid, dp)+ gold;
+
+        int ans4= getGold(row+1, col, m, n, grid, dp)+ gold;
+
+        int ans= Math.max(ans1, Math.max(ans2, Math.max(ans3, ans4)));
+        dp[row][col]= ans;
+
+        grid[row][col]= gold;
+
+        return ans;
+    }
+}
