@@ -5,7 +5,29 @@ Input: nums = [2,3,-2,4]
 Output: 6
 Explanation: [2,3] has the largest product 6.
 
-CODE:
+CODE 1:
+
+class Solution 
+{
+    public int maxProduct(int[] nums) 
+    {   
+       int ans=-(Integer.MAX_VALUE);  
+       
+       for(int i=0;i<nums.length;i++)
+       {
+         int pro=1;
+         for(int j=i;j<nums.length;j++)
+         {
+             pro*=nums[j];
+             ans=Math.max(ans,pro);
+           }
+         }
+       
+       return ans;
+    }
+}
+
+CODE 2:
 
 class Solution 
 {
