@@ -1,0 +1,48 @@
+Given a triangle array, return the minimum path sum from top to bottom. For each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row.
+
+Example 1:
+Input: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+Output: 11
+Explanation: The triangle looks like:
+   2
+  3 4
+ 6 5 7
+4 1 8 3
+The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).
+
+CODE:
+
+class Solution 
+{
+    public int minimumTotal(List<List<Integer>> tri) 
+    {
+      int sum=0;
+      int[][] dp=new int[tri.size()][tri.size()];
+      dp[0][0]=tri.get(0).get(0);
+
+      for(int i=1;i<tri.size();i++)
+      {
+        for(int j=0;j<=i;j++)
+        {
+          if(j==0)
+            dp[i][j]=dp[i-1][j]+tri.get(i).get(j);
+
+          else if(j==i)
+            dp[i][j]=dp[i-1][j-1]+tri.get(i).get(j);
+
+          else
+          {
+            int temp1=dp[i-1][j-1] +tri.get(i).get(j);
+            int temp2=dp[i-1][j] +tri.get(i).get(j);
+            dp[i][j]=Math.min(temp1, temp2);
+          }
+        }
+      }
+
+      int min=dp[tri.size()-1][0];
+      for(int i=1;i<tri.size();i++)
+        min=Math.min(min,dp[tri.size()-1][i]);
+
+      return min ;
+    }
+}
