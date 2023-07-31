@@ -7,7 +7,7 @@ Example 1:
 Input: root = [2,1,3]
 Output: true
 
-CODE:
+CODE 1:
 
 /**
  * Definition for a binary tree node.
@@ -56,5 +56,26 @@ class Solution
           return false;
       }   
       return true;
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public boolean isValidBST(TreeNode root) 
+    {
+      return isValid(root, null, null);
+    }
+
+    boolean isValid(TreeNode root, Integer max, Integer min) 
+    {
+      if(root == null)
+        return true;
+
+      if((max!=null && root.val>=max) || (min!=null && root.val<=min)) 
+        return false;
+
+      return isValid(root.left,root.val,min) && isValid(root.right,max,root.val);
     }
 }
