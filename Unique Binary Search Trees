@@ -4,7 +4,40 @@ Example 1:
 Input: n = 3
 Output: 5
 
-CODE:
+CODE 1:
+
+class Solution 
+{
+    public int numTrees(int n) 
+    {
+        if(n<=1)
+          return 1;
+
+        int[]arr=new int[n+1];
+        arr[0]=1;
+        arr[1]=1;
+                
+        return cal(arr,n);
+    }
+
+    int cal(int[]arr, int n)
+    {
+      if(n<=1)
+        return 1;
+
+      if(arr[n]!=0)
+        return arr[n];
+
+        int ans=0;
+      for(int i=1;i<=n;i++)
+        ans+=(cal(arr,i-1) * cal(arr,n-i));
+        
+      arr[n]=ans;
+      return arr[n];
+    }
+}
+
+CODE 2:
 
 class Solution 
 {
