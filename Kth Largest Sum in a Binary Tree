@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution 
+{
+    public long kthLargestLevelSum(TreeNode root, int k) 
+    {
+        ArrayList<Long>al=new ArrayList<>();
+        Queue<TreeNode>qu=new LinkedList<>();
+
+        qu.add(root);
+
+       while(!qu.isEmpty())
+      {
+        int n=qu.size();
+        long sum=0;
+
+        for(int i=0;i<n;i++)
+        {
+          TreeNode temp=(TreeNode)qu.poll();
+
+          if(temp==null)
+            continue;
+
+          sum+=(long)temp.val;
+
+          qu.add(temp.left);
+          qu.add(temp.right);
+        }
+
+        al.add(sum); 
+      }
+        Collections.sort(al);
+
+        if(al.size()-k <=0)
+          return -1;
+
+        return (al.get(al.size()-k));
+    }
+}
+    
