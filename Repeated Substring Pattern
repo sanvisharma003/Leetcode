@@ -1,0 +1,17 @@
+Given a string s, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
+
+Example 1:
+Input: s = "abab"
+Output: true
+Explanation: It is the substring "ab" twice.
+
+CODE:
+
+class Solution 
+{
+    public boolean repeatedSubstringPattern(String s) 
+    {
+        String con=s+s;
+        return con.substring(1,con.length()-1).contains(s);
+    }
+}
