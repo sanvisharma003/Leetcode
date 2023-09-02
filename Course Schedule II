@@ -1,0 +1,65 @@
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai. For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1. Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.
+
+Example 1:
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: [0,1]
+Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1].
+
+CODE:
+
+class Solution 
+{
+    public int[] findOrder(int num, int[][] arr) 
+    {
+      ArrayList<Integer> al=new ArrayList<>();
+
+      if(num==1)
+      {
+        int[] ans = new int[1];
+        ans[0]=0;
+        return ans;
+      }
+
+      int deg[]=new int[num];
+      for(int i=0;i<arr.length;i++)
+        deg[arr[i][0]]+=1;
+
+      Queue<Integer>qu=new LinkedList<>();
+      for(int i=0;i<deg.length;i++)
+      {
+        if(deg[i]==0)
+          qu.add(i);
+      }  
+      
+      boolean[]vis=new boolean[num];
+      while(!qu.isEmpty())
+      {
+        int co=qu.remove();
+        vis[co]=true;
+        al.add(co);
+
+        for(int i=0;i<arr.length;i++)
+        { 
+          if(arr[i][1]==co && vis[arr[i][0]]==false)
+          {  
+            --deg[arr[i][0]];
+
+            if(deg[arr[i][0]]==0)
+              qu.add(arr[i][0]);
+          }
+        }
+      }
+
+      for(int i=0;i<deg.length;i++)
+      {
+        if(deg[i]!=0)
+          return new int[0];
+      }
+
+      int[] ans = new int[al.size()];
+      for(int i=0;i<al.size();i++)
+        ans[i]=al.get(i);
+
+      return ans;
+    }
+}
