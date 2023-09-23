@@ -1,0 +1,95 @@
+Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement the WordDictionary class:
+WordDictionary() Initializes the object.
+void addWord(word) Adds word to the data structure, it can be matched later. 
+bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+ 
+Example:
+Input: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"] [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+Output: [null,null,null,null,false,true,true,true]
+Explanation
+WordDictionary wordDictionary = new WordDictionary();
+wordDictionary.addWord("bad");
+wordDictionary.addWord("dad");
+wordDictionary.addWord("mad");
+wordDictionary.search("pad"); // return False
+wordDictionary.search("bad"); // return True
+wordDictionary.search(".ad"); // return True
+wordDictionary.search("b.."); // return True
+
+CODE:
+
+class WordDictionary 
+{
+    class Node
+    {
+            Node child[];
+            boolean eow;
+
+            public Node()
+            {
+                child=new Node[26];
+
+                for(int i=0;i<26;i++)
+                    child[i]=null;
+
+                eow=false;
+            }
+    }
+
+    Node root;
+
+    public WordDictionary()
+    {
+        root=new Node();
+    }
+    
+    public void addWord(String word) 
+    {
+        Node curr=root;
+
+        for(int i=0; i<word.length(); i++)
+        {
+            int ind=word.charAt(i)-'a';
+
+            if(curr.child[ind]==null)
+                curr.child[ind]=new Node();
+
+            if(i==word.length()-1)
+                curr.child[ind].eow=true;
+
+            curr=curr.child[ind];
+        }
+    }
+    
+    public boolean search(String word) 
+    {
+        return dfs(word,0,root);
+    }
+
+    private boolean dfs(String word , int idx, Node root)
+    {
+        if(idx==word.length()) 
+            return root.eow;
+
+        char curr = word.charAt(idx);
+        if(curr != '.')
+        {
+            if(root.child[curr-'a']==null) 
+                return false;
+
+            else 
+                return dfs(word,idx+1,root.child[curr-'a']);
+        }
+        else
+            for(int i=0;i<26;i++) if(root.child[i] !=null) if(dfs(word,idx+1,root.child[i])) return true;
+
+    return false;
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
