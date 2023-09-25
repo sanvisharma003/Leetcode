@@ -3,7 +3,7 @@ Example 1:
 Input: x = 123
 Output: 321
 
-CODE:
+CODE 1:
 
 class Solution 
 {
@@ -44,5 +44,43 @@ class Solution
         x=x/10;
       }
       return count;
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public int reverse(int x) 
+    {
+        if(x>=Integer.MAX_VALUE || x<=Integer.MIN_VALUE || x==0)
+            return 0;
+
+        int ans=0, i=0, neg=0;
+        StringBuilder sb=new StringBuilder();
+
+        if(x<0)
+        {
+            x=-(x);
+            neg++;
+        }
+
+        while(x>0)
+        {
+            sb.append(x%10);
+            x=x/10;
+        }
+                
+        Long temp= Long. parseLong(sb.toString());
+
+        if(temp>2147483647)
+            return 0;
+        
+        ans=temp.intValue();
+
+        if(neg==1)
+            ans=-(ans);
+
+        return ans;
     }
 }
