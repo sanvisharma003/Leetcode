@@ -4,7 +4,7 @@ Example 1:
 Input: head = [1,2,3,4,5], n = 2
 Output: [1,2,3,5]
 
-CODE:
+CODE 1:
 
 /**
  * Definition for singly-linked list.
@@ -54,5 +54,38 @@ class Solution
       p.next=null;
 
       return head;  
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public ListNode removeNthFromEnd(ListNode head, int k) 
+    {
+        if(head==null || k==0 || head.next==null && k==1)
+            return null;
+        
+        int n=0;
+        ListNode temp=head;
+
+        while(temp!=null)
+        {
+            temp=temp.next;
+            n++;
+        }
+
+        if(n==k)
+        {
+            head=head.next;
+            return head;
+        }
+
+        temp=head;
+        for(int i=1; i<n-k; i++)
+            temp=temp.next;
+
+        temp.next=temp.next.next;
+        return head;
     }
 }
