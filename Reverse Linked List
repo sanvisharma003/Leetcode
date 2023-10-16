@@ -8,7 +8,7 @@ CODE 1:
 
 class Solution 
 {
-	ListNode reverse(ListNode curr, ListNode prev, ListNode forw)
+  ListNode reverse(ListNode curr, ListNode prev, ListNode forw)
   {
      curr.next = prev;
 	   if(forw==null)
@@ -49,5 +49,33 @@ class Solution
       }
 
       return pre;
+    }
+}
+
+CODE 3:
+
+class Solution 
+{
+    ListNode ne=null;
+    public ListNode reverseList(ListNode head) 
+    {
+        reverse(null,null,head,head);
+        return ne;
+    }
+
+    void reverse(ListNode pre, ListNode curr, ListNode nex, ListNode head)
+    {
+        if(nex==null)
+        {
+            ne=curr;
+            return;
+        }
+        
+        curr=nex;
+        nex=nex.next;
+        curr.next=pre;
+        pre=curr;        
+
+        reverse(pre,curr,nex,head);
     }
 }
