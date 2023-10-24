@@ -1,0 +1,23 @@
+import java.util.*;
+public class Solution 
+{
+    public static String postToInfix(String exp) 
+    {
+        Stack<String>st=new Stack<>();
+
+        for(int i=0; i<exp.length(); i++)
+        {
+            if(Character.isLetterOrDigit(exp.charAt(i)))
+                st.push(String.valueOf(exp.charAt(i)));
+
+            else
+            {
+                String a=st.pop();
+                String temp='('+st.pop()+exp.charAt(i)+a+')';
+                
+                st.push(temp);
+            }
+        }
+        return st.pop();
+    }
+}
