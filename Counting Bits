@@ -1,0 +1,61 @@
+Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+
+Example 1:
+Input: n = 2
+Output: [0,1,1]
+Explanation:
+0 --> 0
+1 --> 1
+2 --> 10
+
+CODE 1:
+
+class Solution 
+{
+    public int[] countBits(int n) 
+    {
+        int[]ans=new int[n+1];
+
+        for(int i=0; i<=n; i++)
+        {
+            int cnt=0;
+            String temp=Integer.toBinaryString(i);
+
+            for(int j=0; j<temp.length(); j++)
+            {
+                if(temp.charAt(j)=='1')
+                    cnt++;
+            }
+
+            ans[i]=cnt;
+        }
+        return ans;
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public int[] countBits(int n) 
+    {
+        int[]ans=new int[n+1];
+        for(int i=0; i<=n; i++)
+        {
+            ans[i]=binary(i);
+        }
+        return ans;
+    }
+
+    int binary(int n)
+    {
+        int cnt=0;
+        while(n>0)
+        {
+            if(n%2==1)
+                cnt++;
+            n=n/2;
+        }
+        return cnt;
+    }
+}
