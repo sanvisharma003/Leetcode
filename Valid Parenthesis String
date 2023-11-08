@@ -1,0 +1,49 @@
+Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid. The following rules define a valid string:
+Any left parenthesis '(' must have a corresponding right parenthesis ')'. 
+Any right parenthesis ')' must have a corresponding left parenthesis '('. 
+Left parenthesis '(' must go before the corresponding right parenthesis ')'. 
+'*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
+
+Example 1:
+Input: s = "()"
+Output: true
+
+CODE:
+
+class Solution 
+{
+    public boolean checkValidString(String s) 
+    {
+        Stack<Integer>br=new Stack<>();
+        Stack<Integer>st=new Stack<>();
+
+        for(int i=0; i<s.length(); i++)
+        {
+            if(s.charAt(i)=='*')
+                st.push(i);
+
+            else if(s.charAt(i)=='(')
+                br.push(i);
+
+            else
+            {
+                if(!br.isEmpty())
+                    br.pop();
+
+                else if(!st.isEmpty())
+                    st.pop();
+
+                else 
+                    return false;
+            }
+        }
+        
+        while(!br.isEmpty() && !st.isEmpty() && st.peek()>br.peek())
+        {
+            br.pop();
+            st.pop();
+        }
+        
+        return br.isEmpty();
+    }
+}
