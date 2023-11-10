@@ -3,7 +3,7 @@ Example 1:
 Input: nums = [1,3,5,6], target = 5
 Output: 2
 
-CODE:
+CODE 1:
 
 class Solution {
     public int searchInsert(int[] nums, int target) 
@@ -24,5 +24,37 @@ class Solution {
       } 
       
       return i;
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public int searchInsert(int[] nums, int target) 
+    {
+        int ans=search(nums,target,0,nums.length-1);
+        return ans;
+    }
+
+    int search(int[]nums, int tar, int st, int en)
+    {
+        if(st>en)
+            return st;
+
+        if(en>=st)
+        {
+            int mid=(st+en)/2;
+
+            if(tar==nums[mid])
+                return mid;
+
+            else if(tar>nums[mid])
+                return search(nums, tar, mid+1, en);
+
+            else
+                return search(nums,tar,st,mid-1); 
+        }
+        return -1;
     }
 }
