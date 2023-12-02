@@ -5,7 +5,39 @@ Input: s = "abcabcbb"
 Output: 3
 Explanation: The answer is "abc", with the length of 3.
 
-CODE:
+CODE 1:
+
+class Solution 
+{
+    public int lengthOfLongestSubstring(String s) 
+    {
+        HashSet<Character> st=new HashSet<>();
+        int len=0, j=0;
+
+        for(int i=0; i<s.length(); i++)
+        {
+            if(!st.contains(s.charAt(i)))
+            {
+                st.add(s.charAt(i));
+                len=Math.max(len, i-j+1);
+            }
+            else
+            {
+                while(s.charAt(j)!=s.charAt(i))
+                {
+                    st.remove(s.charAt(j));
+                    j++;
+                }
+                st.remove(s.charAt(j));
+                j++;
+                st.add(s.charAt(i));
+            }
+        }
+        return len;
+    }
+}
+
+CODE 2:
 
 class Solution 
 {
