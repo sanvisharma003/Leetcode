@@ -4,7 +4,7 @@ Input: l1 = [2,4,3], l2 = [5,6,4]
 Output: [7,0,8]
 Explanation: 342 + 465 = 807.
 
-CODDE:
+CODE 1:
 
 /**
  * Definition for singly-linked list.
@@ -16,6 +16,93 @@ CODDE:
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
+class Solution 
+{
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) 
+    {
+        int carr=0;
+        ListNode head=null;
+        ListNode p=head;
+
+        while(l1!=null && l2!=null)
+        {
+            int n=l1.val+l2.val;
+
+            if(carr!=0)
+                n+=carr;
+            
+            int dig=n%10;
+            carr=n/10;
+
+            ListNode nn=new ListNode();
+            nn.val=dig;
+
+            if(head==null)
+            {
+                head=nn;
+                p=head;
+            }
+            else
+            {
+                p.next=nn;
+                p=p.next;
+            }
+            l1=l1.next;
+            l2=l2.next;
+        }
+
+        while(l1!=null)
+        {
+            int n=l1.val;
+
+            if(carr!=0)
+                n+=carr;
+            
+            int dig=n%10;
+            carr=n/10;
+
+            ListNode nn=new ListNode();
+                nn.val=dig;
+
+            p.next=nn;
+                p=p.next;
+
+            l1=l1.next;
+        }
+
+        while(l2!=null)
+        {
+            int n=l2.val;
+
+            if(carr!=0)
+                n+=carr;
+            
+            int dig=n%10;
+            carr=n/10;
+
+            ListNode nn=new ListNode();
+                nn.val=dig;
+
+            p.next=nn;
+                p=p.next;
+
+            l2=l2.next;
+        }
+
+        if(carr!=0)
+        {
+            ListNode nn=new ListNode();
+            nn.val=carr;
+
+            p.next=nn;
+        }
+        return head;
+    }
+}
+
+CODE 2:
+
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) 
     {  
