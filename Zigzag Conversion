@@ -10,7 +10,58 @@ Example 1:
 Input: s = "PAYPALISHIRING", numRows = 3
 Output: "PAHNAPLSIIGYIR"
 
-CODE:
+CODE 1:
+
+class Solution 
+{
+    public String convert(String s, int numRows) 
+    {
+        if(numRows==1)
+            return s;
+            
+        String[][]mat=new String[numRows][s.length()];
+        String ans="";
+        int i=0, l=0, k=0;
+        
+        while(i<s.length())
+        {
+            if(k==0)
+            {
+                while(i<s.length() && k<numRows)
+                {
+                    mat[k][l]=s.charAt(i)+"";
+                    k++;
+                    i++;
+                }
+            }
+
+            if(k==numRows)
+            {
+                k=k-2;
+                l++;
+                while(i<s.length() && k>0)
+                {
+                    mat[k][l]=s.charAt(i)+"";
+                    k--;
+                    l++;
+                    i++;
+                }
+            }
+        }
+
+        for(int j=0; j<mat.length; j++)
+        {
+            for(int o=0; o<mat[0].length; o++)
+            {
+                if(mat[j][o]!=null)
+                    ans+=mat[j][o];
+            }
+        }
+        return ans;
+    }
+}
+
+CODE 2:
 
 class Solution 
 {
