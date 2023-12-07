@@ -19,7 +19,61 @@ Input: num = 3
 Output: "III"
 Explanation: 3 is represented as 3 ones.
 
-CODE:
+CODE 1:
+
+class Solution 
+{
+    public String intToRoman(int num) 
+    {
+        StringBuilder ans=new StringBuilder();
+        
+        make(ans, 'M', 'M', '*', num/1000);
+        num=num%1000;
+
+        make(ans, 'C', 'D', 'M', num/100);
+        num=num%100;
+
+        make(ans, 'X', 'L', 'C', num/10);
+        num=num%10;
+
+        make(ans, 'I', 'V', 'X', num);
+
+        return ans.toString();
+    }
+
+    void make(StringBuilder sb, char min, char mid, char maj, int val)
+    {
+        if(val<=3)
+        {
+            for(int i=1; i<=val; i++)
+                sb.append(min);
+        }
+
+        else if(val==4)
+        {
+            sb.append(min);
+            sb.append(mid);
+        }
+
+        else if(val==5)
+            sb.append(mid);
+
+        else if(val<=8)
+        {
+            sb.append(mid);
+            for(int i=6; i<=val; i++)
+                sb.append(min);
+        }
+
+        else if(val==9)
+        {
+            sb.append(min);
+            sb.append(maj);
+        }
+    }
+}
+
+CODE 2:
 
 class Solution 
 {
