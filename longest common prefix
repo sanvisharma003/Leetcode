@@ -3,7 +3,7 @@ Example 1:
 Input: strs = ["flower","flow","flight"]
 Output: "fl"
 
-CODE:
+CODE 1:
 
 class Solution {
     public String longestCommonPrefix(String[] strs) 
@@ -31,5 +31,40 @@ class Solution {
       if(i==0)
         return "";
       return ans;
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    public String longestCommonPrefix(String[] strs) 
+    {
+        if(strs.length==0)
+            return "";
+
+        boolean h=true;
+        int len=0;
+
+        for(int i=0; i< strs[0].length(); i++)
+        {
+            char ch=strs[0].charAt(i);
+            for(int j=1; j<strs.length; j++)
+            {
+                if(i>=strs[j].length() || ch!= strs[j].charAt(i))
+                {
+                    h=false;
+                    break;
+                }
+            }
+            if(h==true)
+                len++;
+        }
+
+        String ans="";
+        for(int i=0; i<len; i++)
+            ans+=strs[0].charAt(i);
+
+        return ans;
     }
 }
