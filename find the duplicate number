@@ -5,6 +5,30 @@ Output: 2
 
 CODE 1:
 
+class Solution 
+{
+    public int findDuplicate(int[] nums) 
+    {
+        int f=0, s=0;
+        do
+        {
+            s=nums[s];
+            f=nums[nums[f]];
+        }while(f!=s);
+
+        s=0;
+        do
+        {
+            s=nums[s];
+            f=nums[f];
+        }while(s!=f);
+
+        return s;
+    }
+}
+
+CODE 2:
+
 class Solution {
     public int findDuplicate(int[] nums) 
     {
@@ -20,7 +44,7 @@ class Solution {
     }
 }
 
-CODE 2:
+CODE 3:
 
 class Solution {
     public int findDuplicate(int[] nums) 
