@@ -9,7 +9,30 @@ Example 2:
 Input: nums = [3,2,4], target = 6
 Output: [1,2]
 
-CODE:
+CODE 1:
+class Solution 
+{
+    public int[] twoSum(int[] nums, int target) 
+    {
+        int sum=0;
+        int ans[]=new int[2];
+        HashMap <Integer, Integer> map=new HashMap<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            sum=target-nums[i];
+            if(map.containsKey(sum))
+            {
+                ans[0]=map.get(sum);
+                ans[1]=i;
+                return ans;
+            }
+            map.put(nums[i],i);
+        }
+        return ans;
+    }
+}
+
+CODE 2:
 class Solution 
 {
     public int[] twoSum(int[] nums, int target) 
