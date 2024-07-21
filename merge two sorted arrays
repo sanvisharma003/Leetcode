@@ -9,6 +9,55 @@ CODE1:
 
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
+        ArrayList<Integer>al= new ArrayList<>();
+        int i=0, j=0;
+
+        while(i<(nums1.length-nums2.length) && j<nums2.length)
+        {
+            if(nums1[i]<nums2[j])
+            {
+                al.add(nums1[i]);
+                i++;
+            }
+            else if(nums1[i]>nums2[j])
+            {
+                al.add(nums2[j]);
+                j++;
+            }
+            else if(nums1[i]==nums2[j])
+            {
+                al.add(nums1[i]);
+                al.add(nums2[j]);
+                i++;
+                j++;
+            }
+        }
+        
+        if(j<nums2.length)
+        {
+            while(j<nums2.length)
+            {
+                al.add(nums2[j]);
+                j++;
+            }
+        }
+        else if(i<(nums1.length-nums2.length))
+        {
+            while(i<(nums1.length-nums2.length))
+            {
+                al.add(nums1[i]);
+                i++;
+            }
+        }
+        for(int k=0; k<al.size(); k++)
+            nums1[k]=al.get(k);
+    }
+}
+
+CODE 2:
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
         int i=0,j=0,k=0;
         int ans[]=new int[m+n];
         if(n==0)
@@ -27,7 +76,7 @@ class Solution {
     }
 }
 
-CODE2:
+CODE3:
 
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
