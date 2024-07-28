@@ -4,7 +4,44 @@ Example 1:
 Input: root = [1,2,2,3,4,4,3]
 Output: true
 
-CODE:
+CODE 1:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution 
+{
+    
+    public boolean isSymmetric(TreeNode root) 
+    {
+        TreeNode left = root, right = root;
+        return find(left, right);
+    }
+    public boolean find(TreeNode t1, TreeNode t2)
+    {
+        if(t1==null && t2==null)
+            return true;
+        
+        if((t1==null && t2!=null) || (t1!=null && t2==null) || (t1.val != t2.val))
+            return false;
+
+        return (find(t1.left,t2.right) && find(t1.right,t2.left));
+    }
+}
+
+CODE 2:
 
 /**
  * Definition for a binary tree node.
