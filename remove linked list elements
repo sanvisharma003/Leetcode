@@ -4,7 +4,7 @@ Example 1:
 Input: head = [1,2,6,3,4,5,6], val = 6
 Output: [1,2,3,4,5]
 
-CODE:
+CODE 1:
 
 /**
  * Definition for singly-linked list.
@@ -16,8 +16,38 @@ CODE:
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
-    public ListNode removeElements(ListNode head, int val) {
+    public ListNode removeElements(ListNode head, int val) 
+    {
+        while(head!=null && val==head.val)
+            head=head.next;
+
+        if(head==null)
+            return null;
+
+        ListNode p = head;
+        
+        while(p!=null)
+        {
+            if(p.next==null)
+                return head; 
+
+            if(p.next.val==val)
+                p.next=p.next.next;
+            else
+                p=p.next;
+            
+        }
+        return head;
+    }
+}
+
+CODE 2:
+
+class Solution {
+    public ListNode removeElements(ListNode head, int val) 
+    {
         ListNode x=head;
         ListNode it=x;
         while(x!=null && x.val==val){
