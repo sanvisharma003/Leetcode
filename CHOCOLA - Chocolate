@@ -1,0 +1,63 @@
+We are given a bar of chocolate composed of m*n square pieces. One should break the chocolate into single squares. Parts of the chocolate may be broken along the vertical and horizontal lines as indicated by the broken lines in the picture. A single break of a part of the chocolate along a chosen vertical or horizontal line divides that part into two smaller ones. Each break of a part of the chocolate is charged a cost expressed by a positive integer. This cost does not depend on the size of the part that is being broken but only depends on the line the break goes along. Let us denote the costs of breaking along consecutive vertical lines with x1, x2, ..., xm-1 and along horizontal lines with y1, y2, ..., yn-1. The cost of breaking the whole bar into single squares is the sum of the successive breaks. One should compute the minimal cost of breaking the whole chocolate into single squares.
+For example, if we break the chocolate presented in the picture first along the horizontal lines, and next each obtained part along vertical lines then the cost of that breaking will be y1+y2+y3+4*(x1+x2+x3+x4+x5).
+
+CODE:
+
+import java.util.*;
+import java.lang.*;
+
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc= new Scanner(System.in);
+		int cases=sc.nextInt();
+		
+		while(cases>0)
+		{
+			int m = sc.nextInt();
+            int n = sc.nextInt();
+            
+            int[] row = new int[n - 1];
+            int[] col = new int[m - 1];
+            
+            for (int i = 0; i < m - 1; i++)
+                col[i] = sc.nextInt();
+            for (int j = 0; j < n - 1; j++)
+                row[j] = sc.nextInt();
+                
+            Arrays.sort(row);
+            Arrays.sort(col);
+            
+            int r = 1, c = 1;
+            int i = row.length - 1, j = col.length - 1;
+            int ans = 0;
+            
+            while (i >= 0 && j >= 0) 
+            {
+                if (row[i] > col[j]) {
+                    ans += row[i] * c;
+                    r++;
+                    i--;
+                } else {
+                    ans += col[j] * r;
+                    c++;
+                    j--;
+                }
+            }
+            
+            while (i >= 0) {
+                ans += row[i] * c;
+                i--;
+            }
+            
+            while (j >= 0) {
+                ans += col[j] * r;
+                j--;
+            }
+            
+            System.out.println(ans);
+            cases--;
+		}
+	}
+}
