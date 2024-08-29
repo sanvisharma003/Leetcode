@@ -7,7 +7,47 @@ Input: nums = [2,3,1,1,4]
 Output: 2
 Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
-CODE:
+CODE 1:
+
+class Solution 
+{
+    public int jump(int[] nums) 
+    {
+        if (nums.length <= 1) 
+            return 0;
+
+        int ans = 0, i=0;
+        while(i<nums.length-1)
+        {
+            ans++;
+            i=helper(nums,i);
+        }
+       
+        return ans;
+    }
+
+    private int helper(int[]arr, int i)
+    {
+        int far=i+arr[i];
+
+        if(far >= arr.length-1)
+            return arr.length;
+        
+        int max=Integer.MIN_VALUE, ind=0;
+
+        for(int j=i; j<=far; j++)
+        {
+            if(arr[j]+j>=max)
+            {
+                max=arr[j]+j;
+                ind=j;
+            }
+        }
+        return ind;
+    }
+}
+
+CODE 2:
 
 class Solution 
 {
