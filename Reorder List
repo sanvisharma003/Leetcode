@@ -1,0 +1,133 @@
+You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → … 
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+Example 1:
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+
+CODE 1:
+
+class Solution 
+{
+    public void reorderList(ListNode head) 
+    {
+        if(head==null || head.next==null)
+            return;
+
+        int no = 0;
+        ListNode p=head;
+
+        while(p!=null)
+        {
+            p=p.next;
+            no++;
+        }
+
+        p=head;
+        no=no/2;
+
+        while(no>0)
+        {
+            p=p.next;
+            no--;
+        }
+   
+        ListNode nhead=reverse(p);
+        ListNode c=head, n=c.next, cn=nhead, nn=cn.next;
+        while(n!=null && nn!=null)
+        {
+            c.next=cn;
+            cn.next=n;
+            c=n;
+            n=n.next;
+            cn=nn;
+            nn=nn.next;
+        } 
+    }
+
+    public ListNode reverse(ListNode head)
+    {
+        ListNode pre=null, curr=null, nxt=head;
+        while(nxt!=null)
+        {
+            curr=nxt;
+            nxt=curr.next;
+            curr.next=pre;
+            pre=curr;
+        }
+        return pre;
+    }
+}
+
+CODE 2:
+
+class Solution 
+{
+    int n=0;
+    public void reorderList(ListNode head) 
+    {
+        if(head==null || head.next==null)
+            return;
+
+        ListNode nhead=duplicate(head);
+        nhead=reverse(nhead);
+        
+        int i=0;
+        ListNode p= head, c=head.next, np=nhead.next;
+
+        while(i<(n/2))
+        {
+            p.next=nhead;
+            nhead.next=c;
+            p=c;
+            c=c.next;
+            nhead=np;
+            np=np.next;
+            i++;
+        }
+        p=head;
+        while(n>1)
+        {
+            p=p.next;
+            n--;
+        }
+        p.next=null;
+    }
+
+    public ListNode reverse(ListNode head)
+    {
+        ListNode pre=null, curr=null, nxt=head;
+        while(nxt!=null)
+        {
+            curr=nxt;
+            nxt=curr.next;
+            curr.next=pre;
+            pre=curr;
+        }
+        return pre;
+    }
+
+    public ListNode duplicate(ListNode head)
+    {
+        ListNode nhead=null, p=null;
+        while(head!=null)
+        {
+            ListNode nn= new ListNode();
+            nn.val=head.val;
+
+            if(nhead==null)
+            {
+                nhead=nn;
+                p=nhead;
+            }
+            else
+            {
+                p.next=nn;
+                p=p.next;
+            }
+            head=head.next;
+            n++;
+        }
+        return nhead;
+    }
+}
