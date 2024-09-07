@@ -5,6 +5,32 @@ Output: "fl"
 
 CODE 1:
 
+class Solution 
+{
+    public String longestCommonPrefix(String[] strs) 
+    {
+        if (strs == null || strs.length == 0)
+            return "";
+            
+        StringBuffer st = new StringBuffer();
+        Arrays.sort(strs);
+        String l=strs[0];
+        String r=strs[strs.length -1];
+        int len = Math.min(l.length(), r.length());
+
+        for(int i=0; i<len; i++)
+        {
+            if(l.charAt(i)==r.charAt(i))
+                st.append(l.charAt(i));
+            else
+                return st.toString();
+        }
+        return st.toString();
+    }
+}
+
+CODE 2:
+
 class Solution {
     public String longestCommonPrefix(String[] strs) 
     {
@@ -34,7 +60,7 @@ class Solution {
     }
 }
 
-CODE 2:
+CODE 3:
 
 class Solution 
 {
